@@ -35,6 +35,7 @@ public class ProgressActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView textViewMessage;
+    private TextView textViewBanquier;
     private AppCompatButton btnRestart;
     private TableLayout tableLayout;
     private Handler handler;
@@ -47,6 +48,7 @@ public class ProgressActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         textViewMessage = findViewById(R.id.message);
+        textViewBanquier = findViewById(R.id.textViewBanquier);
         btnRestart = findViewById(R.id.btn_restart);
         tableLayout = findViewById(R.id.tableLayout);
         init();
@@ -56,6 +58,7 @@ public class ProgressActivity extends AppCompatActivity {
         weathers = new Weather[5];
         handler = new Handler();
         progressBar.setProgress(0);
+        textViewBanquier.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         textViewMessage.setVisibility(View.VISIBLE);
         btnRestart.setVisibility(View.GONE);
@@ -82,6 +85,7 @@ public class ProgressActivity extends AppCompatActivity {
                     progressBar.setProgress(progress);
                     if (progress == MAX) { //progress finish
                         progressBar.setVisibility(View.GONE);
+                        textViewBanquier.setVisibility(View.GONE);
                         textViewMessage.setVisibility(View.GONE);
                         btnRestart.setVisibility(View.VISIBLE);
                         displayWeather();
