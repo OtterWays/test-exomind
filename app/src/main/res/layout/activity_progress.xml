@@ -18,6 +18,16 @@
         android:layout_marginVertical="20dp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_restart"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_margin="30dp"
+        android:onClick="clickRestart"/>
+
     <TextView
         android:id="@+id/message"
         android:layout_width="match_parent"

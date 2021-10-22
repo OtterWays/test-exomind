@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,16 +29,28 @@ public class ProgressActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView textViewMessage;
-    private Handler handler = new Handler();
-    private Weather[] weathers = new Weather[5];
+    private AppCompatButton btnRestart;
+    private Handler handler;
+    private Weather[] weathers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        textViewMessage = (TextView) findViewById(R.id.message);
+        progressBar = findViewById(R.id.progressBar);
+        textViewMessage = findViewById(R.id.message);
+        btnRestart = findViewById(R.id.btn_restart);
+        init();
+    }
+
+    private void init() {
+        weathers = new Weather[5];
+        handler = new Handler();
+        progressBar.setProgress(0);
+        progressBar.setVisibility(View.VISIBLE);
+        textViewMessage.setVisibility(View.VISIBLE);
+        btnRestart.setVisibility(View.GONE);
         doStartProgressBar();
     }
 
@@ -59,7 +73,9 @@ public class ProgressActivity extends AppCompatActivity {
                 handler.post(() -> {
                     progressBar.setProgress(progress);
                     if (progress == MAX) { //progress finish
-
+                        progressBar.setVisibility(View.GONE);
+                        textViewMessage.setVisibility(View.GONE);
+                        btnRestart.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -78,6 +94,10 @@ public class ProgressActivity extends AppCompatActivity {
                 weathers[i] = weather;
             }
         });
+    }
+
+    public void clickRestart(View view) {
+        init();
     }
 
     private interface WeatherListener {
