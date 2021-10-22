@@ -25,8 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:text="@string/home"
-        android:layout_gravity="center"/>
+        android:text="@string/btn_start"
+        android:layout_gravity="center"
+        android:onClick="clickStart"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
