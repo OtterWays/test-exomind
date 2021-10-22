@@ -4,4 +4,7 @@
     <!-- main activity -->
     <string name="home">Bienvenue sur Kata</string>
     <string name="btn_start">Commencer</string>
+
+    <!-- progress activity -->
+    <string name="discussion_avec_votre_banquier">Discussion avec votre banquier, pas commode…</string>
 </resources>
