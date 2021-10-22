@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +19,14 @@ public class ProgressActivity extends AppCompatActivity {
 
     private final int MAX = 60;
     private final String[] CITY = {"Rennes", "Paris", "Nantes", "Bordeaux", "Lyon"};
+    private final String[] MESSAGE = {
+            "Nous téléchargeons les données…",
+            "C’est presque fini…",
+            "Plus que quelques secondes avant d’avoir le résultat…"
+    };
 
     private ProgressBar progressBar;
+    private TextView textViewMessage;
     private Handler handler = new Handler();
     private Weather[] weathers = new Weather[5];
 
@@ -29,6 +36,7 @@ public class ProgressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_progress);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        textViewMessage = (TextView) findViewById(R.id.message);
         doStartProgressBar();
     }
 
@@ -39,6 +47,9 @@ public class ProgressActivity extends AppCompatActivity {
 
                 if (i % 10 == 0) {
                     displayWeather(i / 10);
+                }
+                if (i % 6 == 0) { //toutes les 6s
+                    textViewMessage.setText(MESSAGE[i%18/6]); //on ramène i à 0;6 ou 12 et on divise par 6 pour avoir 0;1 ou 2
                 }
 
                 final int progress = i + 1;
