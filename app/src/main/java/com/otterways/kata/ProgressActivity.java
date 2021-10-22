@@ -6,11 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +36,7 @@ public class ProgressActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView textViewMessage;
     private AppCompatButton btnRestart;
+    private TableLayout tableLayout;
     private Handler handler;
     private Weather[] weathers;
 
@@ -41,6 +48,7 @@ public class ProgressActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textViewMessage = findViewById(R.id.message);
         btnRestart = findViewById(R.id.btn_restart);
+        tableLayout = findViewById(R.id.tableLayout);
         init();
     }
 
@@ -60,10 +68,10 @@ public class ProgressActivity extends AppCompatActivity {
             for (int i = 0; i < MAX; i++) {
 
                 if (i % 10 == 0) {
-                    displayWeather(i / 10);
+                    downloadWeather(i / 10);
                 }
                 if (i % 6 == 0) { //toutes les 6s
-                    textViewMessage.setText(MESSAGE[i%18/6]); //on ramène i à 0;6 ou 12 et on divise par 6 pour avoir 0;1 ou 2
+                    textViewMessage.setText(MESSAGE[i % 18 / 6]); //on ramène i à 0;6 ou 12 et on divise par 6 pour avoir 0;1 ou 2
                 }
 
                 final int progress = i + 1;
@@ -76,6 +84,7 @@ public class ProgressActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         textViewMessage.setVisibility(View.GONE);
                         btnRestart.setVisibility(View.VISIBLE);
+                        displayWeather();
                     }
                 });
             }
@@ -83,7 +92,43 @@ public class ProgressActivity extends AppCompatActivity {
         thread.start();
     }
 
-    private void displayWeather(Integer i) {
+    //display weather report when downloading is finished
+    private void displayWeather() {
+        for (int i = 0; i < weathers.length; i++) {
+            Weather weather = weathers[i];
+            TableRow tr = new TableRow(this);
+            tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+            TextView tvCity = new TextView(this);
+            tvCity.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            tvCity.setText(weather.getCity());
+            tvCity.setBackground(AppCompatResources.getDrawable(this, R.drawable.border));
+
+            TextView tvTemp = new TextView(this);
+            tvTemp.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            String temp = weather.getTemp() + "°F";
+            tvTemp.setText(temp);
+            tvTemp.setBackground(AppCompatResources.getDrawable(this, R.drawable.border));
+            tvTemp.setPadding(0,10,0,10);
+
+            ImageView ivIcon = new ImageView(this);
+            ivIcon.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+            String urlIcon = "https://openweathermap.org/img/w/" + weather.getIconWeather() + ".png";
+            Picasso.get().load(urlIcon).into(ivIcon);
+            ivIcon.setBackground(AppCompatResources.getDrawable(this, R.drawable.border));
+
+            tr.addView(tvCity);
+            tr.addView(tvTemp);
+            tr.addView(ivIcon);
+            tr.setBackground(AppCompatResources.getDrawable(this, R.drawable.border));
+
+            tableLayout.addView(tr);
+        }
+        tableLayout.setVisibility(View.VISIBLE);
+    }
+
+    //download the weather report for each city
+    private void downloadWeather(Integer i) {
         if (i >= CITY.length) {
             return;
         }

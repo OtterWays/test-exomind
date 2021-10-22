@@ -8,6 +8,9 @@
     <!-- progress activity -->
     <string name="discussion_avec_votre_banquier">Discussion avec votre banquier, pas commode…</string>
     <string name="btn_restart">Recommencer</string>
+    <string name="city">Ville</string>
+    <string name="temp">Température</string>
+    <string name="weather">Temps</string>
 
     <!-- api key for meteo -->
     <string name="api_key">bc2d91639bdb07bbe03cdc199bf5a6e9</string>
