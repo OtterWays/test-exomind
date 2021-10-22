@@ -61,6 +61,7 @@ public class ProgressActivity extends AppCompatActivity {
         textViewBanquier.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
         textViewMessage.setVisibility(View.VISIBLE);
+        tableLayout.setVisibility(View.GONE);
         btnRestart.setVisibility(View.GONE);
         doStartProgressBar();
     }
