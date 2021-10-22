@@ -7,4 +7,7 @@
 
     <!-- progress activity -->
     <string name="discussion_avec_votre_banquier">Discussion avec votre banquier, pas commode…</string>
+
+    <!-- api key for meteo -->
+    <string name="api_key">bc2d91639bdb07bbe03cdc199bf5a6e9</string>
 </resources>
