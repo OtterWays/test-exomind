@@ -114,7 +114,7 @@ public class ProgressActivity extends AppCompatActivity {
             String temp = weather.getTemp() + "°F";
             tvTemp.setText(temp);
             tvTemp.setBackground(AppCompatResources.getDrawable(this, R.drawable.border));
-            tvTemp.setPadding(0,10,0,10);
+            tvTemp.setPadding(0, 10, 0, 10);
 
             ImageView ivIcon = new ImageView(this);
             ivIcon.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
@@ -147,6 +147,8 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     public void clickRestart(View view) {
+        for (int i = weathers.length; i > 0; i--)
+            tableLayout.removeViewAt(1);
         init();
     }
 
